@@ -1,0 +1,2 @@
+# RainWolfBot
+simple discord bot
