@@ -1,16 +1,24 @@
 const Discord = require('discord.js')
+Discord.Constants.DefaultOptions.ws.properties.$browser = "Discord Android"
 const client = new Discord.Client()
-const config = require('./config.json');
-const command = require('./command')  
-client.commands = new Discord.Collection();
-const firstMessage =  require('./first-message')
-const skr = require('./skr')
+const config = require('./config.json')
+const roleClaim = require('./role-claim')
+const command = require('./command')
+const keepAlive = require('./server.js')
+const electric = require('./electric')
+const botinfo = require('./botinfo')
+const uptime = require('./uptime')
+const mySecret = process.env['token']
 
 client.on('ready', () => {
     console.log(`已登入 ${client.user.tag}!`)
 
-    skr(client)
-  })
+    roleClaim(client)
+    electric(client)
+    uptime(client)
+    botinfo(client)
+    keepAlive()
+})
 
   command(client, '條件', (message) => {
     const logo =
@@ -134,4 +142,4 @@ command(client, 'serverinfo', (message) => {
     }
   })
 
-client.login(config.token)
+client.login(mySecret)
